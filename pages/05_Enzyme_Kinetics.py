@@ -59,16 +59,7 @@ tabs = st.tabs(["Simulation", "Fit Model", "Uncertainty", "Compare"])
 
 with tabs[0]:
     st.markdown("### Simulation")
-    import matplotlib.pyplot as plt
-
-    fig, ax = plt.subplots()
-    ax.scatter(substrate, obs, label="Observed", alpha=0.7)
-    ax.plot(substrate, true_v, label="True", color="tab:orange")
-    ax.set_xlabel("[S]")
-    ax.set_ylabel("v")
-    ax.set_title("Enzyme kinetics simulation")
-    ax.legend()
-    st.pyplot(fig, use_container_width=True)
+    st.line_chart(pd.DataFrame({"[S]": substrate, "Observed": obs, "True": true_v}).set_index("[S]"))
     if show_lb:
         lb_df = pd.DataFrame({"1/[S]": 1 / substrate, "1/v": 1 / np.clip(obs, 1e-6, None)})
         st.line_chart(lb_df.set_index("1/[S]"))
