@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Food Quality Modelling Simulator</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="hero">
+      <div>
+        <p class="eyebrow">Food Quality Modelling</p>
+        <h1>Interactive Simulator</h1>
+        <p class="subhead">
+          Explore kinetics, microbial growth, enzyme activity, optimization,
+          and chemometrics in a streamlined, Vercel-ready experience.
+        </p>
+      </div>
+      <div class="hero-card">
+        <h2>Quick Start</h2>
+        <ol>
+          <li>Adjust any slider to see results update.</li>
+          <li>Navigate modules using the tabs below.</li>
+          <li>Deploy instantly on Vercel as a static site.</li>
+        </ol>
+      </div>
+    </header>
+
+    <nav class="tabs" role="tablist">
+      <button class="tab active" data-tab="kinetic">Kinetic Sandbox</button>
+      <button class="tab" data-tab="arrhenius">Arrhenius</button>
+      <button class="tab" data-tab="two-stage">Two-stage</button>
+      <button class="tab" data-tab="microbial">Microbial Growth</button>
+      <button class="tab" data-tab="enzyme">Enzyme Kinetics</button>
+      <button class="tab" data-tab="gradient">Gradient Descent</button>
+      <button class="tab" data-tab="ridge">Regularized Regression</button>
+      <button class="tab" data-tab="pca">PCA / PLS Lab</button>
+    </nav>
+
+    <main>
+      <section class="panel active" id="kinetic">
+        <div class="panel-header">
+          <h2>Kinetic Sandbox</h2>
+          <p>Estimate concentration decay for a first-order reaction.</p>
+        </div>
+        <div class="panel-grid">
+          <div class="controls">
+            <label>
+              Initial concentration (C₀)
+              <input type="range" min="10" max="100" value="60" step="1" data-input="kinetic-c0" />
+            </label>
+            <label>
+              Rate constant (k, 1/h)
+              <input type="range" min="0.01" max="0.3" value="0.08" step="0.01" data-input="kinetic-k" />
+            </label>
+            <label>
+              Time (h)
+              <input type="range" min="0" max="24" value="8" step="1" data-input="kinetic-t" />
+            </label>
+          </div>
+          <div class="output-card">
+            <h3>Prediction</h3>
+            <p class="metric" data-output="kinetic-result"></p>
+            <div class="sparkline" data-chart="kinetic-chart"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel" id="arrhenius">
+        <div class="panel-header">
+          <h2>Arrhenius Simulator</h2>
+          <p>See how temperature shifts the rate constant.</p>
+        </div>
+        <div class="panel-grid">
+          <div class="controls">
+            <label>
+              Activation energy (kJ/mol)
+              <input type="range" min="20" max="120" value="65" step="1" data-input="arrhenius-ea" />
+            </label>
+            <label>
+              Temperature (°C)
+              <input type="range" min="0" max="80" value="25" step="1" data-input="arrhenius-temp" />
+            </label>
+          </div>
+          <div class="output-card">
+            <h3>Rate constant</h3>
+            <p class="metric" data-output="arrhenius-result"></p>
+            <p class="helper" data-output="arrhenius-note"></p>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel" id="two-stage">
+        <div class="panel-header">
+          <h2>Two-stage / Multi-process Degradation</h2>
+          <p>Combine fast and slow decay phases.</p>
+        </div>
+        <div class="panel-grid">
+          <div class="controls">
+            <label>
+              Fast phase k₁ (1/h)
+              <input type="range" min="0.05" max="0.6" value="0.25" step="0.01" data-input="twostage-k1" />
+            </label>
+            <label>
+              Slow phase k₂ (1/h)
+              <input type="range" min="0.01" max="0.2" value="0.06" step="0.01" data-input="twostage-k2" />
+            </label>
+            <label>
+              Switch time (h)
+              <input type="range" min="2" max="12" value="6" step="1" data-input="twostage-ts" />
+            </label>
+          </div>
+          <div class="output-card">
+            <h3>Estimated concentration</h3>
+            <p class="metric" data-output="twostage-result"></p>
+            <div class="sparkline" data-chart="twostage-chart"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel" id="microbial">
+        <div class="panel-header">
+          <h2>Microbial Growth Kinetics</h2>
+          <p>Logistic growth with lag time.</p>
+        </div>
+        <div class="panel-grid">
+          <div class="controls">
+            <label>
+              Max population (log CFU)
+              <input type="range" min="5" max="12" value="9" step="0.1" data-input="micro-max" />
+            </label>
+            <label>
+              Growth rate (1/h)
+              <input type="range" min="0.1" max="1.2" value="0.5" step="0.05" data-input="micro-rate" />
+            </label>
+            <label>
+              Lag time (h)
+              <input type="range" min="0" max="10" value="2" step="0.5" data-input="micro-lag" />
+            </label>
+          </div>
+          <div class="output-card">
+            <h3>Population at 12h</h3>
+            <p class="metric" data-output="micro-result"></p>
+            <div class="sparkline" data-chart="micro-chart"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel" id="enzyme">
+        <div class="panel-header">
+          <h2>Enzyme Kinetics</h2>
+          <p>Michaelis-Menten velocity with substrate effects.</p>
+        </div>
+        <div class="panel-grid">
+          <div class="controls">
+            <label>
+              Vmax
+              <input type="range" min="1" max="15" value="8" step="0.5" data-input="enzyme-vmax" />
+            </label>
+            <label>
+              Km
+              <input type="range" min="0.2" max="6" value="2" step="0.1" data-input="enzyme-km" />
+            </label>
+            <label>
+              Substrate (S)
+              <input type="range" min="0.1" max="10" value="4" step="0.1" data-input="enzyme-s" />
+            </label>
+          </div>
+          <div class="output-card">
+            <h3>Reaction velocity</h3>
+            <p class="metric" data-output="enzyme-result"></p>
+            <div class="sparkline" data-chart="enzyme-chart"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel" id="gradient">
+        <div class="panel-header">
+          <h2>Gradient Descent Simulator</h2>
+          <p>Track loss reduction over iterations.</p>
+        </div>
+        <div class="panel-grid">
+          <div class="controls">
+            <label>
+              Learning rate
+              <input type="range" min="0.01" max="0.4" value="0.08" step="0.01" data-input="gd-rate" />
+            </label>
+            <label>
+              Iterations
+              <input type="range" min="10" max="200" value="80" step="5" data-input="gd-iter" />
+            </label>
+          </div>
+          <div class="output-card">
+            <h3>Final loss</h3>
+            <p class="metric" data-output="gd-result"></p>
+            <div class="sparkline" data-chart="gd-chart"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel" id="ridge">
+        <div class="panel-header">
+          <h2>Regularized Linear Regression</h2>
+          <p>Balance fit and penalty strength.</p>
+        </div>
+        <div class="panel-grid">
+          <div class="controls">
+            <label>
+              Regularization (λ)
+              <input type="range" min="0" max="10" value="2" step="0.1" data-input="ridge-lambda" />
+            </label>
+            <label>
+              Noise level
+              <input type="range" min="0" max="3" value="1" step="0.1" data-input="ridge-noise" />
+            </label>
+          </div>
+          <div class="output-card">
+            <h3>Validation score</h3>
+            <p class="metric" data-output="ridge-result"></p>
+            <p class="helper" data-output="ridge-note"></p>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel" id="pca">
+        <div class="panel-header">
+          <h2>PCA / PLS Visualization Lab</h2>
+          <p>Inspect variance explained as components increase.</p>
+        </div>
+        <div class="panel-grid">
+          <div class="controls">
+            <label>
+              Components
+              <input type="range" min="1" max="6" value="3" step="1" data-input="pca-components" />
+            </label>
+            <label>
+              Signal strength
+              <input type="range" min="0.2" max="1.4" value="0.8" step="0.1" data-input="pca-signal" />
+            </label>
+          </div>
+          <div class="output-card">
+            <h3>Variance explained</h3>
+            <p class="metric" data-output="pca-result"></p>
+            <div class="sparkline" data-chart="pca-chart"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>Built with vanilla JavaScript for effortless Vercel deployment.</p>
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>

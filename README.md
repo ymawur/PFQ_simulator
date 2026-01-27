@@ -1,6 +1,8 @@
 # Food Quality Modelling Simulator
 
-Interactive Streamlit web application for teaching modelling basics, kinetics, microbial/enzymatic kinetics, machine learning basics, and chemometrics in a food quality modelling course.
+Interactive web application for teaching modelling basics, kinetics,
+microbial/enzymatic kinetics, machine learning basics, and chemometrics in a
+food quality modelling course.
 
 ## Features
 - Multi-page simulator with eight modules:
@@ -16,22 +18,15 @@ Interactive Streamlit web application for teaching modelling basics, kinetics, m
 - Synthetic data generation on every page.
 - Example datasets in `data/examples/`.
 
-## Setup
+## Run locally
+
+Use any static server to preview the site. For example:
 
 ```bash
-python -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
+npx serve .
 ```
 
-## Run
+## Deploy to Vercel
 
-```bash
-streamlit run app.py
-```
-
-## Tests
-
-```bash
-pytest
-```
+The project is a static site, so Vercel can deploy it directly. Point Vercel at
+the repository root and it will serve `index.html` automatically.
