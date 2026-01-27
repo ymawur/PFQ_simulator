@@ -6,3 +6,5 @@ scikit-learn
 matplotlib
 plotly
 pytest
+starlette
+httpx

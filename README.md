@@ -35,3 +35,9 @@ streamlit run app.py
 ```bash
 pytest
 ```
+
+## Deploy to Vercel
+
+This repo includes a `vercel.json` plus an ASGI wrapper that starts Streamlit and
+proxies requests to it. Deploy the project in Vercel as a Python project; no
+additional build command is required.
